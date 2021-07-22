@@ -27,7 +27,7 @@ public class ControllerServlet extends HttpServlet{
 		this.processRequest(req, resp);
 	}
 	
-	
+	private static final String CONTROLLER_URL = "controller?action=";
     private static final String ACTION_KEY = "action";
     private static final String VIEW_CAR_LIST_ACTION = "viewCarList";
     private static final String ADD_CAR_ACTION = "addCar";
@@ -52,13 +52,14 @@ public class ControllerServlet extends HttpServlet{
 //			destinationPage = "/carList.jsp";
 //			
 //		}else if (action.equals(ADD_CAR_ACTION)) {
-//		
+//		  
 //		}
 //		  
 		
 		switch(action) {
 			case VIEW_CAR_LIST_ACTION:
 				List<CarDTO> cars = daoRef.findAll();
+				System.out.println(cars.get(0));
 				request.setAttribute("carList", cars);
 				destinationPage = "/carList.jsp";
 				break;
@@ -66,6 +67,15 @@ public class ControllerServlet extends HttpServlet{
 				CarDTO car = new CarDTO();
 				request.setAttribute("car",car);
 				destinationPage = "/carForm.jsp";
+				break;
+			case SAVE_CAR_ACTION:
+				addCar(request,response,daoRef);
+				response.sendRedirect(CONTROLLER_URL+VIEW_CAR_LIST_ACTION);
+				return;
+			case EDIT_CAR_ACTION:
+				 car = daoRef.findById(Integer.parseInt(request.getParameter("id")));
+				 request.setAttribute("car",car);
+				 destinationPage = "/carForm.jsp";
 				break;
 			default:
 				System.out.println("No Route Handle");
@@ -78,6 +88,30 @@ public class ControllerServlet extends HttpServlet{
 		request.getRequestDispatcher(destinationPage).forward(request, response);
 	
 	
+	}
+	
+	private void addCar(HttpServletRequest request, HttpServletResponse response, CarDAO daoRef) {
+		String idString = request.getParameter("id");
+		if(idString==null) {
+		String make = request.getParameter("make");
+		String model = request.getParameter("model");
+		String modelYear = request.getParameter("modelYear");
+		CarDTO car = new CarDTO();
+		car.setMake(make);
+		car.setModel(model);
+		car.setModelYear(modelYear);
+		daoRef.create(car); 
+		}else {
+			int id = Integer.parseInt(idString);
+			CarDTO car = daoRef.findById(id);
+			String make = request.getParameter("make");
+			String model = request.getParameter("model");
+			String modelYear = request.getParameter("modelYear");
+			car.setMake(make);
+			car.setModel(model);
+			car.setModelYear(modelYear);
+			daoRef.update(car);
+		}
 	}
 	
 	

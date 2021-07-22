@@ -9,23 +9,33 @@ import java.io.Serializable;
  * @see java.lang.Object
  * @author Abhishek
  * 
- *
+ *  
  */
 public class CarDTO implements Serializable
 {
     private int id;
     private String make;
     private String model;
-    private String modelYear;
+    private String model_Year;
 
     public CarDTO()
     {
         //TODO 1 initialize id to -1 and rest of the member variables to a blank string
 		id = -1;
-		make = model = modelYear = "Not Specified";
+		make = model = model_Year = "Not Specified";
     }
 
-    //TODO 2 Implement the setter and getter methods
+    
+    
+    public CarDTO(String make, String model, String modelYear) {
+		this.make = make;
+		this.model = model;
+		this.model_Year = modelYear;
+	}
+
+    	
+
+	//TODO 2 Implement the setter and getter methods
 	public int getId() {
 		return id;
 	}
@@ -51,10 +61,10 @@ public class CarDTO implements Serializable
 	}
 
 	public String getModelYear() {
-		return modelYear;
+		return model_Year;
 	}
 
 	public void setModelYear(String modelYear) {
-		this.modelYear = modelYear;
+		this.model_Year = modelYear;
 	}
 }
