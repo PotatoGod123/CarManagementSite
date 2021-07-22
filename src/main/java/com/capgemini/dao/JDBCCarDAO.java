@@ -76,11 +76,14 @@ public class JDBCCarDAO implements CarDAO {
 				// For iteration over the ResultSet populate carList with CarDTO
 
 				while (result.next()) {
+					
 					CarDTO carDTO = new CarDTO();
-					carDTO.setId(result.getInt(4));
-					carDTO.setMake(result.getString(1));
-					carDTO.setModel(result.getString(2));
-					carDTO.setModelYear(result.getString(3));
+					carDTO.setId(result.getInt(1));
+					carDTO.setMake(result.getString(2));
+					carDTO.setModel(result.getString(3));
+					carDTO.setModelYear(result.getString(4));
+					System.out.println(result.toString());
+					System.out.println(result.getString(3));
 
 					carList.add(carDTO);
 				}

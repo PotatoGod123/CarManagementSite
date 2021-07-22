@@ -6,13 +6,13 @@
   <input type="hidden" name="id" value="${car.id}" />
   <table>
     <!-- input fields -->    <tr>      <td>Make<font color="red"><sup>*</sup></font> </td>
-      <td><input type="text" name="make" value="${car.make}" /></td>
+      <td><input required type="text" name="make" value="${car.make}" /></td>
     </tr>  
     <tr>        <td>Model</td>
-      <td><input type="text" name="model" value=<c:out value="${requestScope.car.model}"/> /></td>
+      <td><input required type="text" name="model" value=<c:out value="${requestScope.car.model}"/> /></td>
     </tr>
     <tr>      <td class="model-year">Model Year</td>
-      <td><input type="text" name="modelYear" value="${car. modelYear}" /></td>
+      <td><input required type="text" name="modelYear" value="${car. modelYear}" /></td>
     </tr>
     
     <!-- Save/Reset buttons -->
